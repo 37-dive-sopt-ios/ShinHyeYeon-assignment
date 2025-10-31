@@ -33,7 +33,7 @@ final class LoginViewController: UIViewController {
         $0.layer.cornerRadius = 4
         $0.layer.borderWidth = 1
         $0.layer.borderColor = UIColor(resource: .baeminGray200).cgColor
-        $0.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: $0.frame.height))
+        $0.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
         $0.leftViewMode = .always
         $0.clearButtonMode = .whileEditing
         $0.addTarget(self, action: #selector(textFieldDidBeginEditing(_:)), for: .editingDidBegin)
@@ -115,6 +115,7 @@ final class LoginViewController: UIViewController {
     // MARK: - Setup Methods
     
     private func setStyle() {
+        view.backgroundColor = .white
         self.navigationController?.isNavigationBarHidden = true
     }
     
@@ -171,6 +172,18 @@ final class LoginViewController: UIViewController {
         loginButton.backgroundColor = isFormValid ? .baeminMint500 : .baeminGray200
     }
     
+    private func clearTextField() {
+        idTextField.text = ""
+        passwordTextField.text = ""
+        idTextField.layer.borderColor = UIColor(resource: .baeminGray200).cgColor
+        passwordTextField.layer.borderColor = UIColor(resource: .baeminGray200).cgColor
+        
+        view.endEditing(true)
+        
+        validateInput()
+        textFieldDidChange(passwordTextField)
+    }
+    
     @objc private func textFieldDidChange(_ textField: UITextField) {
         if textField == passwordTextField {
             textField.rightViewMode = textField.text?.isEmpty == false ? .always : .never
@@ -191,14 +204,27 @@ final class LoginViewController: UIViewController {
         passwordTextField.isSecureTextEntry.toggle()
     }
     
-    @objc private func clearPasswordText() {
-        passwordTextField.text = ""
-    }
-    
     @objc private func loginButtonTapped() {
         let welcomeVC = WelcomeViewController()
-        welcomeVC.id = idTextField.text
+        welcomeVC.delegate = self
         self.navigationController?.pushViewController(welcomeVC, animated: true)
+    }
+    
+    @objc private func clearPasswordText() {
+        passwordTextField.text = ""
+        textFieldDidChange(passwordTextField)
+        validateInput()
+    }
+}
+
+extension LoginViewController: WelcomeViewControllerDelegate {
+    func getIDForWelcomeView() -> String? {
+        return idTextField.text
+    }
+    
+    func willPopToLogin() {
+        clearTextField()
+
     }
 }
 

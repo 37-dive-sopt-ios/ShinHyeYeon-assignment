@@ -10,11 +10,16 @@ import UIKit
 import SnapKit
 import Then
 
+protocol WelcomeViewControllerDelegate: AnyObject {
+    func getIDForWelcomeView() -> String?
+    func willPopToLogin()
+}
+
 final class WelcomeViewController: UIViewController {
     
     // MARK: - Properties
     
-    var id: String?
+    weak var delegate: WelcomeViewControllerDelegate?
     
     // MARK: - UI Components
     
@@ -61,11 +66,17 @@ final class WelcomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setStyle()
         setUI()
         setLayout()
+        setDelegate()
     }
     
     // MARK: - Setup Methods
+    
+    private func setStyle() {
+        view.backgroundColor = .white
+    }
     
     private func setUI() {
         view.addSubviews(backButton, titleLabel,
@@ -110,13 +121,15 @@ final class WelcomeViewController: UIViewController {
         }
     }
     
-    private func setWelcomeText() {
-        if let id = self.id, !id.isEmpty {
-            idLabel.text = "\(id)님 반가워요!"
+    private func setDelegate() {
+        guard let id = delegate?.getIDForWelcomeView(), !id.isEmpty else {
+            return
         }
+        idLabel.text = "\(id)님 반가워요!"
     }
     
     @objc private func backButtonTapped() {
+        delegate?.willPopToLogin()
         self.navigationController?.popViewController(animated: true)
     }
 }
