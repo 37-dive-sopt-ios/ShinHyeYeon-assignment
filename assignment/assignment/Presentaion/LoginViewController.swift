@@ -179,8 +179,6 @@ final class LoginViewController: UIViewController {
         passwordTextField.layer.borderColor = UIColor(resource: .baeminGray200).cgColor
         
         view.endEditing(true)
-        
-        validateInput()
         textFieldDidChange(passwordTextField)
     }
     
