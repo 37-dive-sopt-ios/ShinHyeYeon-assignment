@@ -19,6 +19,8 @@ final class BaeminFeedViewController: UIViewController {
     
     private let headerView = BaeminFeedHeaderView()
     private let categoryView = FoodCategoryView()
+    private let martView = MartView()
+    private let bannerView = BannerView()
 
     // MARK: - Life Cycle
 
@@ -41,7 +43,7 @@ final class BaeminFeedViewController: UIViewController {
     private func setUI() {
         view.addSubviews(scrollView)
         scrollView.addSubview(contentView)
-        contentView.addSubviews(headerView, categoryView)
+        contentView.addSubviews(headerView, categoryView, martView, bannerView)
     }
     
     private func setLayout() {
@@ -62,7 +64,17 @@ final class BaeminFeedViewController: UIViewController {
         categoryView.snp.makeConstraints {
             $0.top.equalTo(headerView.snp.bottom)
             $0.horizontalEdges.equalToSuperview()
-            $0.bottom.equalToSuperview()
+        }
+        
+        martView.snp.makeConstraints {
+            $0.top.equalTo(categoryView.snp.bottom).offset(10)
+            $0.horizontalEdges.equalToSuperview()
+        }
+        
+        bannerView.snp.makeConstraints {
+            $0.top.equalTo(martView.snp.bottom).offset(10)
+            $0.horizontalEdges.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(20)
         }
     }
 }
