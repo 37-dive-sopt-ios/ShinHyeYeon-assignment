@@ -53,12 +53,12 @@ final class WelcomeViewController: UIViewController {
     }
     
     private let loginButton = UIButton(type: .system).then {
-        $0.setTitle("뒤로가기", for: .normal)
+        $0.setTitle("메인으로 가기", for: .normal)
         $0.backgroundColor = .baeminMint500
         $0.setTitleColor(.white, for: .normal)
         $0.layer.cornerRadius = 4
         $0.titleLabel?.font = .head_b_18
-        $0.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        $0.addTarget(self, action: #selector(goToMainButtonTapped), for: .touchUpInside)
     }
     
     // MARK: - Init
@@ -131,6 +131,11 @@ final class WelcomeViewController: UIViewController {
     @objc private func backButtonTapped() {
         delegate?.willPopToLogin()
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc private func goToMainButtonTapped() {
+        let mainVC = BaeminFeedViewController()
+        self.navigationController?.pushViewController(mainVC, animated: true)
     }
 }
 
