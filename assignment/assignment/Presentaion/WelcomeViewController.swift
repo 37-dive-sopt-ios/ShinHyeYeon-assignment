@@ -61,7 +61,7 @@ final class WelcomeViewController: UIViewController {
         $0.addTarget(self, action: #selector(goToMainButtonTapped), for: .touchUpInside)
     }
     
-    // MARK: - Init
+    // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
