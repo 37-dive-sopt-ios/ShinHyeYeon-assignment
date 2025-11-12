@@ -1,5 +1,5 @@
 //
-//  BaeminFeedViewController.swift
+//  FeedViewController.swift
 //  assignment
 //
 //  Created by 신혜연 on 11/11/25.
@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class BaeminFeedViewController: UIViewController {
+final class FeedViewController: UIViewController {
     
     // MARK: - UI Components
     
@@ -87,5 +87,5 @@ final class BaeminFeedViewController: UIViewController {
 }
 
 #Preview {
-    BaeminFeedViewController()
+    FeedViewController()
 }

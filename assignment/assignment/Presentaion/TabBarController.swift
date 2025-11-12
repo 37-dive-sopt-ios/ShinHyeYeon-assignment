@@ -12,7 +12,7 @@ final class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let firstVC = BaeminFeedViewController()
+        let firstVC = FeedViewController()
         firstVC.tabBarItem = UITabBarItem(title: "홈", image: UIImage(resource: .tabIcon), tag: 0)
         
         let secondVC = UIViewController()
