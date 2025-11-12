@@ -84,12 +84,23 @@ final class HeaderView: UIView {
         $0.configuration?.baseForegroundColor = .baeminBlack
         $0.configuration?.contentInsets = .zero
     }
+    
+    private let gradientLayer = CAGradientLayer().then {
+        let topColor = UIColor.baeminMint300.withAlphaComponent(0.7).cgColor
+        let whiteColor = UIColor.white.cgColor
+        
+        $0.colors = [topColor, whiteColor, whiteColor]
+        $0.startPoint = CGPoint(x: 0.5, y: 1.0)
+        $0.endPoint = CGPoint(x: 0.5, y: 0.0)
+        $0.locations = [0.0, 0.4, 1.0]
+    }
 
     // MARK: - Life Cycle
 
     override init(frame: CGRect) {
         super.init(frame: frame)
 
+        setStyle()
         setUI()
         setLayout()
     }
@@ -98,7 +109,16 @@ final class HeaderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: - Setup Methods
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        gradientLayer.frame = self.bounds
+    }
+    
+    // MARK: - Setting Methods
+    
+    private func setStyle() {
+        layer.insertSublayer(gradientLayer, at: 0)
+    }
     
     private func setUI() {
         self.addSubviews(locationButton, stackView, textField, imageView, specialPriceButton)
@@ -134,4 +154,8 @@ final class HeaderView: UIView {
             $0.bottom.equalToSuperview().inset(20)
         }
     }
+}
+
+#Preview {
+    HeaderView()
 }

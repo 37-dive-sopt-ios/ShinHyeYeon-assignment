@@ -39,6 +39,8 @@ final class BaeminFeedViewController: UIViewController {
         view.backgroundColor = .baeminBackgroundWhite
         self.navigationController?.isNavigationBarHidden = true
         scrollView.contentInsetAdjustmentBehavior = .never
+        scrollView.showsVerticalScrollIndicator = false
+        
     }
     
     private func setUI() {
@@ -80,7 +82,7 @@ final class BaeminFeedViewController: UIViewController {
         rankingView.snp.makeConstraints {
             $0.top.equalTo(bannerView.snp.bottom).offset(10)
             $0.horizontalEdges.equalToSuperview()
-            $0.bottom.equalToSuperview().offset(20)
+            $0.bottom.equalToSuperview().inset(20)
         }
     }
 }

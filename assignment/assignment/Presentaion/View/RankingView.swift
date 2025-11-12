@@ -60,6 +60,16 @@ final class RankingView: UIView {
         return collectionView
     }()
     
+    private let gradientLayer = CAGradientLayer().then {
+        let topColor = UIColor.baeminBackgroundPurple.cgColor
+        let whiteColor = UIColor.white.cgColor
+        
+        $0.colors = [topColor, whiteColor, whiteColor]
+        $0.startPoint = CGPoint(x: 0.5, y: 0.0)
+        $0.endPoint = CGPoint(x: 0.5, y: 1.0)
+        $0.locations = [0.0, 0.5, 1.0]
+    }
+    
     // MARK: - Life Cycle
     
     override init(frame: CGRect) {
@@ -74,10 +84,15 @@ final class RankingView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        gradientLayer.frame = self.bounds
+    }
+    
     // MARK: - Setting Methods
     
     private func setStyle() {
-        backgroundColor = .lightGray // TODO: 그라데이션 배경 교체
+        layer.insertSublayer(gradientLayer, at: 0)
     }
     
     private func setUI() {
