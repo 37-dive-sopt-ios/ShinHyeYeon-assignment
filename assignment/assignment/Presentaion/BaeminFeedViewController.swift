@@ -17,8 +17,8 @@ final class BaeminFeedViewController: UIViewController {
     private let scrollView = UIScrollView()
     private let contentView = UIView()
     
-    private let headerView = BaeminFeedHeaderView()
-    private let categoryView = FoodCategoryView()
+    private let headerView = HeaderView()
+    private let categoryView = CategoryView()
     private let martView = MartView()
     private let bannerView = BannerView()
 

@@ -1,5 +1,5 @@
 //
-//  BaeminFeedHeaderView.swift
+//  HeaderView.swift
 //  assignment
 //
 //  Created by 신혜연 on 11/11/25.
@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class BaeminFeedHeaderView: UIView {
+final class HeaderView: UIView {
 
     // MARK: - UI Components
     

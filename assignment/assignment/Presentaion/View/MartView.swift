@@ -16,6 +16,9 @@ final class MartView: UIView {
     
     let martCategories = ["B마트", "CU", "이마트슈퍼", "홈플러스", "GS25",
                           "이마트", "롯데마트", "코스트코"]
+    let martImages: [UIImage?] = [
+        .mart0, .mart1, .mart0, .mart1, .mart0, .mart1, .mart0, .mart1
+    ]
     
     private lazy var cellHeight: CGFloat = {
         let labelFont = UIFont.body_r_14
@@ -34,7 +37,7 @@ final class MartView: UIView {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .white
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.register(FoodCategoryCell.self, forCellWithReuseIdentifier: FoodCategoryCell.identifier)
+        collectionView.register(CategoryCell.self, forCellWithReuseIdentifier: CategoryCell.identifier)
         
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -77,13 +80,16 @@ extension MartView: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: FoodCategoryCell.identifier,
+            withReuseIdentifier: CategoryCell.identifier,
             for: indexPath
-        ) as? FoodCategoryCell else {
+        ) as? CategoryCell else {
             return UICollectionViewCell()
         }
         
-        cell.configure(with: martCategories[indexPath.item])
+        let title = martCategories[indexPath.item]
+        let image = martImages[indexPath.item]
+        
+        cell.configure(with: title, image: image)
         return cell
     }
 }

@@ -1,5 +1,5 @@
 //
-//  FoodCategoryView.swift
+//  CategoryView.swift
 //  assignment
 //
 //  Created by 신혜연 on 11/11/25.
@@ -10,19 +10,22 @@ import UIKit
 import SnapKit
 import Then
 
-final class FoodCategoryView: UIView {
+final class CategoryView: UIView {
     
     // MARK: - Properties
     
     let categories = ["음식배달", "픽업", "장보기·쇼핑", "선물하기", "혜택모아보기"]
-    private var selectedUnderlineViewLeadingConstraint: Constraint?
-    private var selectedUnderlineViewWidthConstraint: Constraint?
-    
-    private var categoryButtons: [UIButton] = []
-    private var selectedIndex: Int = 0
-    
     let foodCategories = ["한그릇", "치킨", "카페·디저트", "피자", "분식",
                               "고기", "찜·탕", "야식", "패스트푸드", "픽업"]
+    let foodCategoryImages: [UIImage?] = [
+        .food0, .food1, .food2, .food3, .food4,
+        .food5, .food6, .food7, .food8, .food9
+    ]
+    
+    private var selectedUnderlineViewLeadingConstraint: Constraint?
+    private var selectedUnderlineViewWidthConstraint: Constraint?
+    private var categoryButtons: [UIButton] = []
+    private var selectedIndex: Int = 0
     
     // MARK: - UI Components
     
@@ -51,7 +54,7 @@ final class FoodCategoryView: UIView {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .white
         collectionView.isScrollEnabled = false
-        collectionView.register(FoodCategoryCell.self, forCellWithReuseIdentifier: FoodCategoryCell.identifier)
+        collectionView.register(CategoryCell.self, forCellWithReuseIdentifier: CategoryCell.identifier)
         
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -144,8 +147,8 @@ final class FoodCategoryView: UIView {
         
         let labelFont = UIFont.body_r_14
         let labelHeight = "A".size(withAttributes: [.font: labelFont]).height
-        let cellHeight = 58 + 6 + labelHeight // 1줄 셀 높이
-        let lineSpacing: CGFloat = 16 // ⭐️ Delegate의 minimumLineSpacing와 동일해야 함
+        let cellHeight = 58 + 6 + labelHeight
+        let lineSpacing: CGFloat = 16
         let numberOfRows: CGFloat = 2
         let collectionViewHeight = (cellHeight * numberOfRows) + (lineSpacing * (numberOfRows - 1))
         
@@ -230,33 +233,33 @@ extension UISegmentedControl {
     }
 }
 
-extension FoodCategoryView: UICollectionViewDataSource {
+extension CategoryView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return foodCategories.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: FoodCategoryCell.identifier,
+            withReuseIdentifier: CategoryCell.identifier,
             for: indexPath
-        ) as? FoodCategoryCell else {
+        ) as? CategoryCell else {
             return UICollectionViewCell()
         }
         
-        cell.configure(with: foodCategories[indexPath.item])
+        let title = foodCategories[indexPath.item]
+        let image = foodCategoryImages[indexPath.item]
+        
+        cell.configure(with: title, image: image)
         return cell
     }
 }
 
-extension FoodCategoryView: UICollectionViewDelegateFlowLayout {
+extension CategoryView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellWidth: CGFloat = 58
-        
         let labelFont = UIFont.body_r_14
         let labelHeight = "A".size(withAttributes: [.font: labelFont]).height
         let cellHeight = 58 + 6 + labelHeight
-        let lineSpacing: CGFloat = 16
-        let numberOfRows: CGFloat = 2
         
         return CGSize(width: cellWidth, height: cellHeight)
     }
@@ -266,7 +269,6 @@ extension FoodCategoryView: UICollectionViewDelegateFlowLayout {
         let totalWidth = collectionView.bounds.width
         let cellWidth: CGFloat = 58
         let numberOfCells: CGFloat = 5
-        
         let totalSpacing = totalWidth - (cellWidth * numberOfCells)
         let numberOfGaps = numberOfCells - 1
         
@@ -279,5 +281,5 @@ extension FoodCategoryView: UICollectionViewDelegateFlowLayout {
 }
 
 #Preview {
-    FoodCategoryView()
+    CategoryView()
 }
