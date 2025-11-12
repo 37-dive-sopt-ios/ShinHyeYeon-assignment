@@ -134,7 +134,7 @@ final class WelcomeViewController: UIViewController {
     }
     
     @objc private func goToMainButtonTapped() {
-        let mainVC = BaeminFeedViewController()
+        let mainVC = TabBarController()
         self.navigationController?.setViewControllers([mainVC], animated: true)
     }
 }

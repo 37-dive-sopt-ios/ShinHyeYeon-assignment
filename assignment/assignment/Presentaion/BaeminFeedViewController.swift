@@ -40,7 +40,6 @@ final class BaeminFeedViewController: UIViewController {
         self.navigationController?.isNavigationBarHidden = true
         scrollView.contentInsetAdjustmentBehavior = .never
         scrollView.showsVerticalScrollIndicator = false
-        
     }
     
     private func setUI() {
