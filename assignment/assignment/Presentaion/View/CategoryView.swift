@@ -201,6 +201,17 @@ final class CategoryView: UIView {
         sender.isSelected = true
         selectedIndex = newIndex
         updateUnderlinePosition(animated: true)
+        
+        self.categoryCollectionView.reloadData()
+        let shouldShowBottomViews = (newIndex == 0)
+        
+        UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseOut) {
+            self.bottomUnderlineView.alpha = shouldShowBottomViews ? 1.0 : 0.0
+            self.moreButton.alpha = shouldShowBottomViews ? 1.0 : 0.0
+        }
+        
+        self.bottomUnderlineView.isUserInteractionEnabled = shouldShowBottomViews
+        self.moreButton.isUserInteractionEnabled = shouldShowBottomViews
     }
     
     private func updateUnderlinePosition(animated: Bool) {
@@ -235,7 +246,7 @@ extension UISegmentedControl {
 
 extension CategoryView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return foodCategories.count
+        return (selectedIndex == 0) ? foodCategories.count : 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

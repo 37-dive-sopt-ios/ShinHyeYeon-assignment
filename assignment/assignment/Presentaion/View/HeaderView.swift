@@ -87,7 +87,7 @@ final class HeaderView: UIView {
     
     private let gradientLayer = CAGradientLayer().then {
         let topColor = UIColor.baeminMint300.withAlphaComponent(0.7).cgColor
-        let whiteColor = UIColor.white.cgColor
+        let whiteColor = UIColor.baeminBackgroundWhite.cgColor
         
         $0.colors = [topColor, whiteColor, whiteColor]
         $0.startPoint = CGPoint(x: 0.5, y: 1.0)
